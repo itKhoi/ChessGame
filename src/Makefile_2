@@ -1,0 +1,30 @@
+C      = gcc
+DEBUG  = -g -DDEBUG
+CFLAGS = -ansi -Wall -c -std=c99
+LFLAGS = -Wall
+
+OBJS = AI.o Board.o ChessGame.o FileIO.o Move.o SpecialFeatures.o
+DEPS = AI.h Board.h FileIO.h Move.h SpecialFeatures.h
+
+DESIGN = ChessGame
+all: $(DESIGN)
+ChessGame: $(OBJS)
+        $(CC) $(LFLAGS) $(OBJS) -o ChessGame -g
+
+ChessGame.o: ChessGame.c $(DEPS)
+        $(CC) $(CFLAGS) ChessGame.c -o ChessGame.o
+AI.o: AI.c AI.h Board.h
+        $(CC) $(CFLAGS) AI.c -o AI.o
+Board.o: Board.c Board.h
+        $(CC) $(CFLAGS) Board.c -o Board.o
+FileIO.o: FileIO.c FileIO.h Board.h
+        $(CC) $(CFLAGS) FileIO.c -o FileIO.o
+Move.o: Move.c Move.h Board.h
+        $(CC) $(CFLAGS) Move.c -o Move.o
+SpecialFeatures.o: SpecialFeatures.c SpecialFeatures.h Board.h
+        $(CC) $(CFLAGS) SpecialFeatures.c -o SpecialFeatures.o
+
+
+clean:
+	rm -f *.o
+
